@@ -1,0 +1,9 @@
+[
+    {
+        "nome": "escala-frigorifico",
+        "descrição": "escala-semanal",
+        "dias": ["segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sabado","domingo"],
+        "funcionarios": ["João Gabriel","Jéssica"]    
+    }
+]
+
