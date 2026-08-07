@@ -1,3 +1,6 @@
+funcionarios = []
+sair_do_sistema = False
+
 def apresenta_menu():
     print("====================================")
     print("     SISTEMA DIGESTÃO DE ESCALA     ")
@@ -13,9 +16,19 @@ def apresenta_menu():
     
 
 def cadastrar_funcionario():
-    funcionarios = input("digite o nome do funcionario: ")
-    print(f"o nome cadastrado foi: {funcionarios}")
-    
+    funcionario = input("digite o nome do funcionario: ")
+    funcionarios.append(funcionario)
+    print(f"o nome cadastrado foi: {funcionario}")
+    print("====================================")
+    print("Você gostaria de adicionar um novo funcionário?")
+    print("   1. Sim ✅")
+    print("   2. Não ❌")
+    seguir_cadastro = input("Escolha uma opção: ")
+    print("====================================")
+    if seguir_cadastro == "1":
+        cadastrar_funcionario() 
+    if seguir_cadastro == "2":
+        print("Cadastre concluído! ✅")              
 def listar_funcionario():
     print("listando_funcionario")
     
@@ -24,16 +37,16 @@ def sair():
     
     
 #=====================================================
-    
-opcao_menu = apresenta_menu()
+ 
+while not sair_do_sistema:
+    opcao_menu = apresenta_menu()
 
-
-match opcao_menu:
-        case "1":
-            cadastrar_funcionario() 
-        case "2":
-            listar_funcionario() 
-        case "0":
-            sair()
-        case _:  
-            print("Opção Inválida!")
+    match opcao_menu:
+            case "1":
+                cadastrar_funcionario() 
+            case "2":
+                listar_funcionario() 
+            case "0":
+                sair()
+            case _:  
+                print("Opção Inválida!")
