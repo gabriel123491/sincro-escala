@@ -11,6 +11,7 @@ def apresenta_menu():
     print("")
     print("   1. Cadastrar funcionário 🙎")
     print("   2. Listar funcionário 🙎🙎")
+    print("   3. Excluir funcionário 🗑️​")
     print("   0. Sair ❌")
     print("")
     opcao_menu = input("Escolha uma opção: ")
@@ -37,7 +38,19 @@ def listar_funcionarios():
     with open(path_bd,"r", encoding="utf-8") as arquivo:
         for linha in arquivo:
             print(linha.strip())
+
+def excluir_funcionarios():
+    listar_funcionarios()
+    funcionário = input("Qual funcionário você deseja deletar: ")
+    with open(path_bd,"r", encoding="utf-8") as arquivo:
+        nomes = arquivo.readlines()
     
+    with open(path_bd,"w", encoding="utf-8") as arquivo:
+        for linha in nomes:
+            if linha.strip() == funcionário:
+                linha = ""
+            arquivo.write(linha)
+        
     
 def sair():
     print("Saindo do sistema digestão de escala👋")
@@ -52,9 +65,11 @@ while not sair_do_sistema:
             case "1":
                 cadastrar_funcionario() 
             case "2":
-                listar_funcionarios() 
+                listar_funcionarios()
+            case "3":
+                excluir_funcionarios()        
             case "0":
                 sair()
                 break
             case _:  
-                print("Opção Inválida!")
+                print("Opção Inválida!") 
