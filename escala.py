@@ -1,13 +1,13 @@
 from pathlib import Path
 
-path_bd = Path("sincro-escalas/BD") / "escalas_bd.txt"
+path_bd = Path("sincro-escala/BD") / "escala_bd.txt"
 escalas = []
 
 def cadastrar_escalas():
     escala = input("digite o nome das escalas!: ")
     with open(path_bd,"a", encoding="utf-8") as arquivo:
-        arquivo.write(f"{escalas}\n")
-    escalas.append(escalas)
+        arquivo.write(f"{escala}\n")
+    escalas.append(escala)
     print(f"O nome cadastrado foi: {escala}")
     print("======================================")
     print("você gostaria de adicionar novas escalas?")
@@ -19,3 +19,22 @@ def cadastrar_escalas():
         cadastrar_escalas()
     if seguir_cadastro == "2":
         print("cadastro concluido ✅")
+        
+        
+def listar_escalas():
+    with open(path_bd,"r", encoding="utf-8") as arquivo:
+        for linha in arquivo:
+            print(linha.strip())
+            
+            
+def excluir_escala():
+    listar_escalas()
+    escalas = input("Qual escala você deseja deletar: ")
+    with open(path_bd,"r", encoding="utf-8") as arquivo:
+        nomes = arquivo.readlines()
+    
+    with open(path_bd,"w", encoding="utf-8") as arquivo:
+        for linha in nomes:
+            if linha.strip() == escalas:
+                linha = ""
+            arquivo.write(linha)
