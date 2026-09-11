@@ -2,7 +2,16 @@ from pathlib import Path
 
 path_bd = Path("sincro-escala/BD") / "funcionario_bd.txt"
 funcionarios = []
+
 def cadastrar_funcionario():
+    print("====================================")
+    print("       CADASTRAR FUNCIONARIOS       ")
+    print("====================================")
+    print("")
+    listar_funcionarios()
+    print("")
+    print("====================================")
+
     funcionário = input("digite o nome do funcionario: ")
     with open(path_bd,"a", encoding="utf-8") as arquivo:
         arquivo.write(f"{funcionário}\n")
@@ -23,7 +32,6 @@ def listar_funcionarios():
     with open(path_bd,"r", encoding="utf-8") as arquivo:
         for linha in arquivo:
             print(linha.strip())
-            
             
 def excluir_funcionarios():
     listar_funcionarios()
