@@ -1,9 +1,20 @@
+import json
 from pathlib import Path
 
-path_bd = Path("sincro-escala/BD") / "funcionario_bd.txt"
+path_bd = Path(__file__).parent / "BD" / "funcionario_bd.json"
 funcionarios = []
 
+def _carregar_funcionarios():
+    if not path_bd.exists():
+        return []
+    
+    with open(path_bd,"r", encoding="utf-8") as arquivo:
+        return json.load(arquivo)
+
+    
 def cadastrar_funcionario():
+    funcionarios = _carregar_funcionarios()
+    
     print("====================================")
     print("       CADASTRAR FUNCIONARIOS       ")
     print("====================================")
@@ -12,10 +23,12 @@ def cadastrar_funcionario():
     print("")
     print("====================================")
 
-    funcionário = input("digite o nome do funcionario: ")
-    with open(path_bd,"a", encoding="utf-8") as arquivo:
-        arquivo.write(f"{funcionário}\n")
-    print(f"O nome cadastrado foi: {funcionário}")
+    nome = input("digite o nome: ")
+    proximo_id = max((f["id"] for f in funcionarios), default=0) + 1
+    funcionarios.append({"id": proximo_id, "nome":nome})
+    with open(path_bd,"w", encoding="utf-8") as arquivo:
+        json.dump(funcionarios, arquivo, ensure_ascii=False, indent= 4)
+    print(f"O nome cadastrado foi: {nome}")
     print("======================================")
     print("você gostaria de adicionar um novo funcionário?")
     print("1. Sim ✅")
@@ -28,12 +41,9 @@ def cadastrar_funcionario():
         print("cadastro concluido ✅")
         
 def listar_funcionarios():
-    with open(path_bd,"r", encoding="utf-8") as arquivo:
-        for linha in arquivo:
-            nome_limpo = linha.strip()
-            if nome_limpo not in funcionarios:
-                funcionarios.append(nome_limpo)
-    print("\n". join(funcionarios))
+    funcionarios = _carregar_funcionarios()
+    for f in funcionarios:
+        print(f"id: {f['id']} - nome: {f['nome']}")
             
 def excluir_funcionarios():
     listar_funcionarios()
